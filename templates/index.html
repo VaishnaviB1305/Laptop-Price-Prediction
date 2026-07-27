@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Laptop Price Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>The Laptop Price Predictor</h1>
+
+        <form action="/" method="POST" class="predictor-form">
+            <label for="ram">Ram (GB)</label>
+            <select name="ram" id="ram" required>
+                {% for r in options.Ram %}
+                <option value="{{ r }}" {% if submitted and submitted.ram == r %}selected{% endif %}>{{ r }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="weight">Weight (Kg)</label>
+            <input type="number" step="0.01" name="weight" id="weight"
+                   value="{{ submitted.weight if submitted else '1.5' }}" required>
+
+            <label for="company">Company</label>
+            <select name="company" id="company" required>
+                {% for c in options.Company %}
+                <option value="{{ c }}" {% if submitted and submitted.company == c %}selected{% endif %}>{{ c }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="type_name">Type Name</label>
+            <select name="type_name" id="type_name" required>
+                {% for t in options.TypeName %}
+                <option value="{{ t }}" {% if submitted and submitted.type_name == t %}selected{% endif %}>{{ t }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="opsys">Operating System</label>
+            <select name="opsys" id="opsys" required>
+                {% for o in options.OpSys %}
+                <option value="{{ o }}" {% if submitted and submitted.opsys == o %}selected{% endif %}>{{ o }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="cpu">CPU</label>
+            <select name="cpu" id="cpu" required>
+                {% for c in options.Cpu %}
+                <option value="{{ c }}" {% if submitted and submitted.cpu == c %}selected{% endif %}>{{ c }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="gpu">GPU</label>
+            <select name="gpu" id="gpu" required>
+                {% for g in options.Gpu %}
+                <option value="{{ g }}" {% if submitted and submitted.gpu == g %}selected{% endif %}>{{ g }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="memory">Storage</label>
+            <select name="memory" id="memory" required>
+                {% for m in options.Memory %}
+                <option value="{{ m }}" {% if submitted and submitted.memory == m %}selected{% endif %}>{{ m }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="inches">Screen Size (Inches)</label>
+            <input type="number" step="0.1" name="inches" id="inches"
+                   value="{{ submitted.inches if submitted else '15.6' }}" required>
+
+            <div class="checkbox-row">
+                <label><input type="checkbox" name="touchscreen" {% if submitted and submitted.touchscreen %}checked{% endif %}> Touch Screen</label>
+                <label><input type="checkbox" name="ips" {% if submitted and submitted.ips %}checked{% endif %}> IPS</label>
+            </div>
+
+            <button type="submit">Predict Price</button>
+        </form>
+
+        {% if prediction is defined %}
+        <p class="result-heading">The price predicted is:</p>
+        <div class="result-box">
+            Estimated Price: &euro;{{ prediction }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
