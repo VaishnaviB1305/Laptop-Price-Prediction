@@ -1,5 +1,7 @@
 # Laptop Price Predictor
 
+live link : https://laptop-price-prediction-1-u1tj.onrender.com/
+
 A machine learning web app that predicts the price of a laptop based on its
 specifications (brand, RAM, CPU, GPU, storage, screen, etc.), built with
 Python, Scikit-learn, and Flask.
